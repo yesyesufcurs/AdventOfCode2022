@@ -1,4 +1,6 @@
 max_cal = 0
+max_cal2 = 0
+max_cal3 = 0
 curr_cal = 0
 
 f = open("input.txt", "r")
@@ -6,9 +8,19 @@ f = open("input.txt", "r")
 for line in f.readlines():
     line = line.strip()
     if line == "":
-        max_cal = max(max_cal, curr_cal)
+        if curr_cal > max_cal:
+            temp = max_cal2
+            max_cal2 = max_cal
+            max_cal3 = temp
+            max_cal = curr_cal
+        elif curr_cal > max_cal2:
+            max_cal3 = max_cal2
+            max_cal2 = curr_cal
+        elif curr_cal > max_cal3:
+            max_cal3 = curr_cal
         curr_cal = 0
     else:
         curr_cal += int(line)
 
-print(max_cal)
+print("Maximum calories", max_cal)
+print("Sum top 3", max_cal + max_cal2 + max_cal3)
